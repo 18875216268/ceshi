@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>软件库 - 手机端</title>
-    <link rel="stylesheet" href="shouji.css"> <!-- 引入手机端样式 -->
-    <script src="script.js"></script> <!-- 共用电脑端的 JavaScript 文件 -->
+    <title>手机端软件库目录</title>
+    <link rel="icon" href="../../c其它/logo.png" type="image/png"> <!-- 设置网页图标 -->
+    <link rel="stylesheet" href="shouji.css">
+    <link rel="stylesheet" href="../../a弹窗/tc.css">
+    <link rel="stylesheet" href="../../b返回/fh.css">
 </head>
+
 <body>
-    <!-- 返回按钮 -->
-    <div class="返回按钮class" onclick="window.history.back();">
-        <img src="返回.png" alt="返回" class="返回图标">
+    <!-- 返回按钮容器 -->
+    <div class="返回图片容器class">
+        <img src="../../c其它/返回.png" alt="返回" class="返图片class"> <!-- 返回图片 -->
+        <div class="圆形容器class" onclick="goBack()"></div> <!-- 圆形容器 -->
     </div>
 
-    <!-- 软件列表容器 -->
-    <div id="软件列表id" class="软件库1级容器class">
-        <!-- 软件库块由 JavaScript 动态加载 -->
+    <!-- 公告弹窗容器 -->
+    <div class="弹窗容器class" id="弹窗容器id"> <!-- 弹窗容器 -->
+        <div class="弹窗内容class"> <!-- 弹窗内容 -->
+            <h2>公告</h2> <!-- 弹窗标题 -->
+            <p>本网站不存储任何资源，所有软件库均来源于互联网，请各位客官详谨鉴别其真实性、安全性！请勿滥传滥用，且用且珍惜。</p>
+            <button id="关闭按钮id" class="按钮class" onclick="goBack()">关闭</button> <!-- 关闭按钮返回主页 -->
+            <button id="确认按钮id" class="按钮class" onclick="confirmAccess()">确认</button> <!-- 确认按钮 -->
+        </div>
     </div>
 
-    <!-- 分页控件容器 -->
-    <div id="pagination-controls" class="pagination">
-        <!-- 分页按钮由 JavaScript 动态生成 -->
+    <!-- 软件库大容器，用于容纳多个软件块 -->
+    <div class="软件库1级容器class">
+        <!-- 小块容器，用于放置各个软件块 -->
+        <div class="软件库2级容器class" id="软件列表id" role="list"></div>
     </div>
+
+    <!-- 分页按钮的容器，用于显示分页控件 -->
+    <div class="pagination" id="pagination-controls" aria-label="分页控件"></div>
+    <script type="module" src="shouji.js"></script>
+    <script src="../../a弹窗/tc.js"></script>
+    <script src="../../b返回/fh.js"></script>
+    <script src="../../c其它/bj.js"></script>
 </body>
-</html>
 
+</html>
