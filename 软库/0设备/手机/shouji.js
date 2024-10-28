@@ -19,8 +19,17 @@ const itemsPerPage = 20;
 let currentPage = 1;
 let previousPage = 1;
 
-document.getElementById("searchBtn").addEventListener("click", loadSoftwareList);
-document.getElementById("homeBtn").addEventListener("click", () => location.href = "/");
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+let history = JSON.parse(localStorage.getItem('history')) || [];
+
+document.getElementById("clearSearchBtn").addEventListener("click", clearSearch);
+document.getElementById("searchInput").addEventListener("input", loadSoftwareList);
+document.getElementById("loadMoreBtn").addEventListener("click", () => {
+    currentPage++;
+    loadSoftwareList();
+});
+document.getElementById("favoritesBtn").addEventListener("click", showFavorites);
+document.getElementById("historyBtn").addEventListener("click", showHistory);
 
 function loadSoftwareList() {
     const softwareListRef = ref(database, 'sites');
@@ -30,7 +39,6 @@ function loadSoftwareList() {
         const softwareList = snapshot.val();
         if (!softwareList) {
             document.getElementById("software-list").innerHTML = '<p>没有可显示的软件库</p>';
-            document.getElementById("pagination-controls").innerHTML = '';
             return;
         }
 
@@ -41,28 +49,19 @@ function loadSoftwareList() {
             softwareList[key].name.toLowerCase().includes(searchQuery)
         );
 
-        const totalPages = Math.ceil(keys.length / itemsPerPage);
-        generatePaginationControls(totalPages);
-
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         const currentKeys = keys.slice(startIndex, endIndex);
-
-        if (currentPage > previousPage) {
-            container.classList.add("slide-in-left");
-        } else if (currentPage < previousPage) {
-            container.classList.add("slide-in-right");
-        }
-
-        container.addEventListener("animationend", () => {
-            container.classList.remove("slide-in-left", "slide-in-right");
-        });
 
         currentKeys.forEach((key) => {
             const item = softwareList[key];
             const div = document.createElement("div");
             div.className = "software-item";
-            div.innerHTML = `<a href="${item.url}" target="_blank">${item.name}</a>`;
+            div.innerHTML = `
+                <a href="${item.url}" target="_blank">${item.name}</a>
+                <span class="icon-favorite" onclick="toggleFavorite('${key}')">⭐</span>
+                <span class="icon-history" onclick="addHistory('${key}')">📜</span>
+            `;
             container.appendChild(div);
         });
 
@@ -70,37 +69,48 @@ function loadSoftwareList() {
     });
 }
 
-function generatePaginationControls(totalPages) {
-    const paginationControls = document.getElementById("pagination-controls");
-    paginationControls.innerHTML = '';
+function clearSearch() {
+    document.getElementById("searchInput").value = '';
+    currentPage = 1;
+    loadSoftwareList();
+}
 
-    const paginationButtons = [
-        { text: '首页', disabled: currentPage === 1, action: () => { currentPage = 1; loadSoftwareList(); } },
-        { text: '◀', disabled: currentPage === 1, action: () => { currentPage--; loadSoftwareList(); } }
-    ];
-
-    for (let i = 1; i <= totalPages; i++) {
-        paginationButtons.push({
-            text: `${i}`, 
-            disabled: false, 
-            action: () => { currentPage = i; loadSoftwareList(); }, 
-            isCurrent: currentPage === i
-        });
+function toggleFavorite(key) {
+    const index = favorites.indexOf(key);
+    if (index > -1) {
+        favorites.splice(index, 1);
+    } else {
+        favorites.push(key);
     }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
 
-    paginationButtons.push(
-        { text: '▶', disabled: currentPage === totalPages, action: () => { currentPage++; loadSoftwareList(); } },
-        { text: '末页', disabled: currentPage === totalPages, action: () => { currentPage = totalPages; loadSoftwareList(); } }
-    );
+function addHistory(key) {
+    if (!history.includes(key)) {
+        history.push(key);
+    }
+    localStorage.setItem('history', JSON.stringify(history));
+}
 
-    paginationButtons.forEach(({ text, disabled, action, isCurrent }) => {
-        const button = document.createElement("button");
-        button.textContent = text;
-        button.disabled = disabled;
-        button.classList.add("pagination-button");
-        if (isCurrent) button.classList.add("current-page");
-        button.addEventListener("click", action);
-        paginationControls.appendChild(button);
+function showFavorites() {
+    const container = document.getElementById("software-list");
+    container.innerHTML = '';
+    favorites.forEach(key => {
+        const div = document.createElement("div");
+        div.className = "software-item";
+        div.innerHTML = `<a href="#" target="_blank">${key}</a>`;
+        container.appendChild(div);
+    });
+}
+
+function showHistory() {
+    const container = document.getElementById("software-list");
+    container.innerHTML = '';
+    history.forEach(key => {
+        const div = document.createElement("div");
+        div.className = "software-item";
+        div.innerHTML = `<a href="#" target="_blank">${key}</a>`;
+        container.appendChild(div);
     });
 }
 
