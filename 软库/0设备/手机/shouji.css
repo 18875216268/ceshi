@@ -1,99 +1,113 @@
+/* 重置默认样式 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 设置全局样式 */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f5;
-    color: #333;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
     overflow-x: hidden;
 }
 
-header {
-    background-color: #6200ea;
-    color: #fff;
-    padding: 10px;
+/* 顶部导航栏样式 */
+.header {
+    background-color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 
-h1 {
-    font-size: 1.5em;
+.site-title {
+    font-size: 20px;
+    font-weight: bold;
 }
 
-nav {
-    display: flex;
-    gap: 5px;
-}
-
-button {
-    padding: 8px 12px;
-    background-color: #bb86fc;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
+.search-icon {
+    width: 30px;
     cursor: pointer;
 }
 
-input {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
+.search-icon img {
+    width: 100%;
 }
 
-main {
-    padding: 20px;
+/* 搜索弹出框样式 */
+.search-container {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+    padding: 10px;
 }
 
+#search-box {
+    padding: 10px;
+    width: calc(100% - 20px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#search-results {
+    margin-top: 10px;
+}
+
+/* 软件库展示容器样式 */
 .software-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    margin-top: 100px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
     gap: 15px;
+    overflow-y: auto;
 }
 
 .software-item {
-    background-color: #fff;
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    text-align: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
     transition: transform 0.3s;
-    position: relative;
 }
 
 .software-item:hover {
     transform: scale(1.05);
 }
 
-.software-item a {
-    text-decoration: none;
-    color: #6200ea;
+/* 底部导航栏样式 */
+.footer {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #e0e0e0;
+    z-index: 10;
 }
 
-.icon-favorite, .icon-history {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 18px;
+.nav-icon {
+    width: 30px;
     cursor: pointer;
 }
 
-.load-more-btn {
-    margin: 20px auto;
-    display: block;
-    background-color: #6200ea;
-}
-
-footer {
-    display: flex;
-    justify-content: space-around;
-    background-color: #6200ea;
-    padding: 10px 0;
-}
-
-.pagination-controls {
-    display: none; /* 隐藏分页按钮，使用“加载更多” */
+.nav-icon img {
+    width: 100%;
 }
