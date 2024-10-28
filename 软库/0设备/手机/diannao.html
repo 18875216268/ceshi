@@ -16,7 +16,7 @@
 
     <!-- 返回按钮容器 -->
     <div class="返回图片容器class">
-        <img src="../../c其它/主页.png" alt="主页" class="主页图片class" onclick="goHome()"> <!-- 主页图片 -->
+        <img src="主页.png" alt="主页" class="主页图片class" onclick="goHome()"> <!-- 主页图片 -->
         <div class="圆形容器class"></div>
     </div>
 
@@ -31,7 +31,7 @@
     </div>
 
     <!-- 软件库大容器，用于容纳多个软件块 -->
-    <div class="软件库1级容器class">
+    <div class="软件库1级容器class" id="软件库大容器id">
         <!-- 小块容器，用于放置各个软件块 -->
         <div class="软件库2级容器class" id="软件列表id" role="list"></div>
     </div>
@@ -39,14 +39,14 @@
     <!-- 底部导航栏容器 -->
     <div class="底部导航栏容器class">
         <img src="后退.png" alt="后退" class="导航按钮class" onclick="navigateBack()">
-        <img src="主页.png" alt="主页" class="导航按钮class" onclick="goHome()">
+        <img src="主页.png" alt="主页" class="导航按钮class" onclick="goHomeRedirect()">
         <img src="前进.png" alt="前进" class="导航按钮class" onclick="navigateForward()">
     </div>
 
     <script type="module" src="diannao.js"></script>
     <script src="../../a弹窗/tc.js"></script>
     <script src="../../b返回/fh.js"></script>
-    <script src="../../c其它/bj.js"></script>
+    <script src="bj.js"></script>
 </body>
 
 </html>
