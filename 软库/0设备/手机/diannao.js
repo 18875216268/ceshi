@@ -52,7 +52,7 @@ function loadSoftwareList() {
                 historyStack.push({ page: currentPage, url: item.url }); // 记录操作历史，保存页面和URL
                 currentPage = item.url;
                 inLibraryView = true;
-            };;
+            };
             container.appendChild(div); // 将新软件块添加到容器中
         });
     });
@@ -85,7 +85,6 @@ function navigateBack() {
         inLibraryView = false;
     }
 }
-}
 
 function navigateForward() {
     if (futureStack.length > 0) {
@@ -98,7 +97,6 @@ function navigateForward() {
         }
         inLibraryView = true;
     }
-}
 }
 
 function goHomeRedirect() {
