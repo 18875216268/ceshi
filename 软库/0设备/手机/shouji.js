@@ -1,117 +1,102 @@
-// Firebase 配置
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDk5p6EJAe02LEeqhQm1Z1dZxlIqGrRcUo",
-    authDomain: "asqrt-ed615.firebaseapp.com",
-    databaseURL: "https://asqrt-ed615-default-rtdb.firebaseio.com",
-    projectId: "asqrt-ed615",
-    storageBucket: "asqrt-ed615.appspot.com",
-    messagingSenderId: "131720495048",
-    appId: "1:131720495048:web:35f43929e31c1cc3428afd",
-    measurementId: "G-G7D5HRMF0E"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
-// 初始化 Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-const itemsPerPage = 20;
-let currentPage = 1;
-let previousPage = 1;
+// 顶部搜索框的显示/隐藏
+function toggleSearch() {
+    const searchContainer = document.getElementById('search-container');
+    if (searchContainer.style.display === 'none' || !searchContainer.style.display) {
+        searchContainer.style.display = 'flex';
+    } else {
+        searchContainer.style.display = 'none';
+    }
+}
 
-let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-let history = JSON.parse(localStorage.getItem('history')) || [];
+// 搜索功能
+function searchSoftware() {
+    const query = document.getElementById('search-box').value.toLowerCase();
+    const softwareListRef = ref(database, 'sites');
+    onValue(softwareListRef, (snapshot) => {
+        const softwareList = snapshot.val();
+        if (!softwareList) return;
 
-document.getElementById("clearSearchBtn").addEventListener("click", clearSearch);
-document.getElementById("searchInput").addEventListener("input", loadSoftwareList);
-document.getElementById("loadMoreBtn").addEventListener("click", () => {
-    currentPage++;
-    loadSoftwareList();
-});
-document.getElementById("favoritesBtn").addEventListener("click", showFavorites);
-document.getElementById("historyBtn").addEventListener("click", showHistory);
+        const resultsContainer = document.getElementById('search-results');
+        resultsContainer.innerHTML = ''; // 清空之前的搜索结果
+        Object.values(softwareList).forEach(software => {
+            if (software.name.toLowerCase().includes(query)) {
+                const div = document.createElement('div');
+                div.className = 'software-item';
+                div.textContent = software.name;
+                div.onclick = () => loadSoftware(software.url);
+                resultsContainer.appendChild(div);
+            }
+        });
+    });
+}
 
+// 加载软件库
 function loadSoftwareList() {
-    const softwareListRef = database.ref('sites');
-    const searchQuery = document.getElementById("searchInput").value.toLowerCase();
-
-    softwareListRef.once('value', (snapshot) => {
+    const softwareListRef = ref(database, 'sites');
+    onValue(softwareListRef, (snapshot) => {
         const softwareList = snapshot.val();
         if (!softwareList) {
-            document.getElementById("software-list").innerHTML = '<p>没有可显示的软件库</p>';
+            document.getElementById('software-list').innerHTML = '<p>没有可显示的软件库</p>';
             return;
         }
 
-        const container = document.getElementById("software-list");
-        container.innerHTML = '';
-
-        const keys = Object.keys(softwareList).filter(key => 
-            softwareList[key].name.toLowerCase().includes(searchQuery)
-        );
-
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const currentKeys = keys.slice(startIndex, endIndex);
-
-        currentKeys.forEach((key) => {
-            const item = softwareList[key];
-            const div = document.createElement("div");
-            div.className = "software-item";
-            div.innerHTML = `
-                <a href="${item.url}" target="_blank">${item.name}</a>
-                <span class="icon-favorite" onclick="toggleFavorite('${key}')">⭐</span>
-                <span class="icon-history" onclick="addHistory('${key}')">📜</span>
-            `;
+        const container = document.getElementById('software-list');
+        container.innerHTML = ''; // 清空之前的列表
+        Object.values(softwareList).forEach(software => {
+            const div = document.createElement('div');
+            div.className = 'software-item';
+            div.textContent = software.name;
+            div.onclick = () => loadSoftware(software.url);
             container.appendChild(div);
         });
-
-        previousPage = currentPage;
     });
 }
 
-function clearSearch() {
-    document.getElementById("searchInput").value = '';
-    currentPage = 1;
-    loadSoftwareList();
+// 在内嵌界面加载软件
+function loadSoftware(url) {
+    const iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.className = 'embedded-iframe';
+    iframe.style.width = '100%';
+    iframe.style.height = '80vh';
+    iframe.style.border = 'none';
+
+    const container = document.getElementById('software-list');
+    container.innerHTML = ''; // 清空并嵌入 iframe
+    container.appendChild(iframe);
 }
 
-function toggleFavorite(key) {
-    const index = favorites.indexOf(key);
-    if (index > -1) {
-        favorites.splice(index, 1);
-    } else {
-        favorites.push(key);
-    }
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+// 底部按钮的功能实现
+function goHome() {
+    window.location.href = '../../../../index.html';
 }
 
-function addHistory(key) {
-    if (!history.includes(key)) {
-        history.push(key);
-    }
-    localStorage.setItem('history', JSON.stringify(history));
+function goBack() {
+    window.history.back();
 }
 
-function showFavorites() {
-    const container = document.getElementById("software-list");
-    container.innerHTML = '';
-    favorites.forEach(key => {
-        const div = document.createElement("div");
-        div.className = "software-item";
-        div.innerHTML = `<a href="#" target="_blank">${key}</a>`;
-        container.appendChild(div);
-    });
-}
-
-function showHistory() {
-    const container = document.getElementById("software-list");
-    container.innerHTML = '';
-    history.forEach(key => {
-        const div = document.createElement("div");
-        div.className = "software-item";
-        div.innerHTML = `<a href="#" target="_blank">${key}</a>`;
-        container.appendChild(div);
-    });
+function goForward() {
+    window.history.forward();
 }
 
 // 初次加载软件列表
-loadSoftwareList();
+window.onload = () => {
+    loadSoftwareList();
+    document.getElementById('search-container').style.display = 'none'; // 初始隐藏搜索框
+};
