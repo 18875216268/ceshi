@@ -13,7 +13,7 @@ body {
     overflow: hidden; /* 禁止滚动条，保持页面简洁。 */
     position: relative; /* 设置为相对定位，以便后续使用伪元素覆盖页面。 */
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out; /* 背景颜色和文字颜色的渐变效果，提升页面的交互性。 */
-    padding-top: 50px; /* 增加顶部的距离，确保页面内容与浏览器上边距之间有足够的间距。 */
+    padding-top: 100px; /* 增加顶部的距离，确保页面内容与浏览器上边距之间有足够的间距。 */
 }
 
 /* 添加渐变蒙版效果，使页面看起来更加柔和且富有层次感 */
