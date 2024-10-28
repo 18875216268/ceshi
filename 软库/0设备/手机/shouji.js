@@ -1,6 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
-
+// Firebase 配置
 const firebaseConfig = {
     apiKey: "AIzaSyDk5p6EJAe02LEeqhQm1Z1dZxlIqGrRcUo",
     authDomain: "asqrt-ed615.firebaseapp.com",
@@ -12,8 +10,9 @@ const firebaseConfig = {
     measurementId: "G-G7D5HRMF0E"
 };
 
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// 初始化 Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 const itemsPerPage = 20;
 let currentPage = 1;
@@ -32,10 +31,10 @@ document.getElementById("favoritesBtn").addEventListener("click", showFavorites)
 document.getElementById("historyBtn").addEventListener("click", showHistory);
 
 function loadSoftwareList() {
-    const softwareListRef = ref(database, 'sites');
+    const softwareListRef = database.ref('sites');
     const searchQuery = document.getElementById("searchInput").value.toLowerCase();
 
-    onValue(softwareListRef, (snapshot) => {
+    softwareListRef.once('value', (snapshot) => {
         const softwareList = snapshot.val();
         if (!softwareList) {
             document.getElementById("software-list").innerHTML = '<p>没有可显示的软件库</p>';
@@ -114,4 +113,5 @@ function showHistory() {
     });
 }
 
+// 初次加载软件列表
 loadSoftwareList();
