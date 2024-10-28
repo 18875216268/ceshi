@@ -12,14 +12,20 @@
         <nav>
             <button id="homeBtn">返回主页</button>
             <input type="text" id="searchInput" placeholder="搜索软件库...">
-            <button id="searchBtn">搜索</button>
+            <button id="clearSearchBtn">清除</button>
         </nav>
     </header>
 
     <main>
         <div id="software-list" class="software-list"></div>
+        <button id="loadMoreBtn" class="load-more-btn">加载更多</button>
         <div id="pagination-controls" class="pagination-controls"></div>
     </main>
+
+    <footer>
+        <button id="favoritesBtn">我的收藏</button>
+        <button id="historyBtn">浏览历史</button>
+    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
