@@ -49,8 +49,10 @@ function loadSoftwareList() {
             div.setAttribute('tabindex', '0'); // 可通过键盘导航
             div.onclick = function () {
                 loadLibrary(item.url); // 点击后加载对应软件库
-                updateHistory();
-            };
+                historyStack.push({ page: currentPage, url: item.url }); // 记录操作历史，保存页面和URL
+                currentPage = item.url;
+                inLibraryView = true;
+            };;
             container.appendChild(div); // 将新软件块添加到容器中
         });
     });
@@ -75,18 +77,28 @@ function navigateBack() {
     if (historyStack.length > 0) {
         futureStack.push(currentPage); // 将当前页码放入前进栈
         currentPage = historyStack.pop(); // 从历史栈中弹出页码
-        loadSoftwareList(); // 重新加载软件列表
+        if (inLibraryView) {
+            loadLibrary(currentPage.url); // 如果在库视图中，则加载库
+        } else {
+            loadSoftwareList(); // 重新加载软件列表
+        }
         inLibraryView = false;
     }
+}
 }
 
 function navigateForward() {
     if (futureStack.length > 0) {
         historyStack.push(currentPage); // 将当前页码放入历史栈
         currentPage = futureStack.pop(); // 从前进栈中弹出页码
-        loadSoftwareList(); // 重新加载软件列表
-        inLibraryView = false;
+        if (inLibraryView) {
+            loadLibrary(currentPage.url); // 如果在库视图中，则加载库
+        } else {
+            loadSoftwareList(); // 重新加载软件列表
+        }
+        inLibraryView = true;
     }
+}
 }
 
 function goHomeRedirect() {
