@@ -65,7 +65,7 @@ function loadLibrary(url) {
     iframe.setAttribute('src', url); // 设置 iframe 跳转的链接
     iframe.setAttribute('frameborder', '0'); // 设置边框为 0
     iframe.setAttribute('width', '100%'); // 使其宽度为 100%
-    iframe.setAttribute('height', '500px'); // 高度 500px
+    iframe.setAttribute('height', '100%'); // 高度 100%使其全屏显示 // 高度 500px
     container.appendChild(iframe); // 将 iframe 添加到容器中
     inLibraryView = true;
 }
@@ -97,6 +97,8 @@ function goHome() {
     currentPage = 1; // 设置页码为第一页
     loadSoftwareList(); // 重新加载软件列表
     inLibraryView = false;
+    historyStack = []; // 清空历史记录
+    futureStack = []; // 清空前进记录
 }
 
 // 初次加载软件列表
