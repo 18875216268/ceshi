@@ -1,73 +1,107 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
-// Firebase 配置
 const firebaseConfig = {
-    apiKey: "API_KEY",
-    authDomain: "DOMAIN",
-    databaseURL: "DB_URL",
-    projectId: "PROJECT_ID",
-    storageBucket: "STORAGE_BUCKET",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID",
-    measurementId: "MEASUREMENT_ID"
+    apiKey: "AIzaSyDk5p6EJAe02LEeqhQm1Z1dZxlIqGrRcUo",
+    authDomain: "asqrt-ed615.firebaseapp.com",
+    databaseURL: "https://asqrt-ed615-default-rtdb.firebaseio.com",
+    projectId: "asqrt-ed615",
+    storageBucket: "asqrt-ed615.appspot.com",
+    messagingSenderId: "131720495048",
+    appId: "1:131720495048:web:35f43929e31c1cc3428afd",
+    measurementId: "G-G7D5HRMF0E"
 };
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-const itemsPerPage = 8;
+const itemsPerPage = 20;
 let currentPage = 1;
+let previousPage = 1;
+
+document.getElementById("searchBtn").addEventListener("click", loadSoftwareList);
+document.getElementById("homeBtn").addEventListener("click", () => location.href = "/");
 
 function loadSoftwareList() {
     const softwareListRef = ref(database, 'sites');
+    const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+
     onValue(softwareListRef, (snapshot) => {
         const softwareList = snapshot.val();
-        const container = document.getElementById('software-list');
+        if (!softwareList) {
+            document.getElementById("software-list").innerHTML = '<p>没有可显示的软件库</p>';
+            document.getElementById("pagination-controls").innerHTML = '';
+            return;
+        }
+
+        const container = document.getElementById("software-list");
         container.innerHTML = '';
-        if (!softwareList) return container.innerHTML = '<p>没有可显示的软件</p>';
 
-        const keys = Object.keys(softwareList);
+        const keys = Object.keys(softwareList).filter(key => 
+            softwareList[key].name.toLowerCase().includes(searchQuery)
+        );
+
         const totalPages = Math.ceil(keys.length / itemsPerPage);
-
         generatePaginationControls(totalPages);
 
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        keys.slice(startIndex, endIndex).forEach(key => {
+        const currentKeys = keys.slice(startIndex, endIndex);
+
+        if (currentPage > previousPage) {
+            container.classList.add("slide-in-left");
+        } else if (currentPage < previousPage) {
+            container.classList.add("slide-in-right");
+        }
+
+        container.addEventListener("animationend", () => {
+            container.classList.remove("slide-in-left", "slide-in-right");
+        });
+
+        currentKeys.forEach((key) => {
             const item = softwareList[key];
-            const div = document.createElement('div');
-            div.className = 'software-item';
-            div.setAttribute('onclick', `window.open('${item.url}', '_blank')`);
-            div.innerHTML = `<img src="${item.icon}" alt="${item.name}"><span class="name">${item.name}</span>`;
+            const div = document.createElement("div");
+            div.className = "software-item";
+            div.innerHTML = `<a href="${item.url}" target="_blank">${item.name}</a>`;
             container.appendChild(div);
         });
+
+        previousPage = currentPage;
     });
 }
 
 function generatePaginationControls(totalPages) {
-    const paginationControls = document.getElementById('pagination-controls');
+    const paginationControls = document.getElementById("pagination-controls");
     paginationControls.innerHTML = '';
+
+    const paginationButtons = [
+        { text: '首页', disabled: currentPage === 1, action: () => { currentPage = 1; loadSoftwareList(); } },
+        { text: '◀', disabled: currentPage === 1, action: () => { currentPage--; loadSoftwareList(); } }
+    ];
+
     for (let i = 1; i <= totalPages; i++) {
-        const button = document.createElement('button');
-        button.textContent = i;
-        button.className = 'pagination-button' + (i === currentPage ? ' current-page' : '');
-        button.onclick = () => {
-            currentPage = i;
-            loadSoftwareList();
-        };
-        paginationControls.appendChild(button);
+        paginationButtons.push({
+            text: `${i}`, 
+            disabled: false, 
+            action: () => { currentPage = i; loadSoftwareList(); }, 
+            isCurrent: currentPage === i
+        });
     }
+
+    paginationButtons.push(
+        { text: '▶', disabled: currentPage === totalPages, action: () => { currentPage++; loadSoftwareList(); } },
+        { text: '末页', disabled: currentPage === totalPages, action: () => { currentPage = totalPages; loadSoftwareList(); } }
+    );
+
+    paginationButtons.forEach(({ text, disabled, action, isCurrent }) => {
+        const button = document.createElement("button");
+        button.textContent = text;
+        button.disabled = disabled;
+        button.classList.add("pagination-button");
+        if (isCurrent) button.classList.add("current-page");
+        button.addEventListener("click", action);
+        paginationControls.appendChild(button);
+    });
 }
 
-document.addEventListener('DOMContentLoaded', loadSoftwareList);
-
-function goBack() {
-    window.history.back();
-}
-function closeModal() {
-    document.getElementById('announcement-modal').classList.remove('show');
-}
-function confirmAccess() {
-    closeModal();
-}
+loadSoftwareList();
