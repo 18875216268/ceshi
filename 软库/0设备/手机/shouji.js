@@ -1,19 +1,19 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"; // 导入Firebase初始化模块
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"; // 导入Firebase数据库模块
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-const firebaseConfig = { // 配置Firebase的详细信息
-  apiKey: "YOUR_API_KEY", // API密钥
-  authDomain: "YOUR_AUTH_DOMAIN", // 授权域名
-  databaseURL: "YOUR_DATABASE_URL", // 数据库URL
-  projectId: "YOUR_PROJECT_ID", // 项目ID
-  storageBucket: "YOUR_STORAGE_BUCKET", // 存储桶
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // 消息发送ID
-  appId: "YOUR_APP_ID", // 应用ID
-  measurementId: "YOUR_MEASUREMENT_ID" // 测量ID
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyDk5p6EJAe02LEeqhQm1Z1dZxlIqGrRcUo",
+      authDomain: "asqrt-ed615.firebaseapp.com",
+      databaseURL: "https://asqrt-ed615-default-rtdb.firebaseio.com",
+      projectId: "asqrt-ed615",
+      storageBucket: "asqrt-ed615.appspot.com",
+      messagingSenderId: "131720495048",
+      appId: "1:131720495048:web:35f43929e31c1cc3428afd",
+      measurementId: "G-G7D5HRMF0E"
+    };
 
-const app = initializeApp(firebaseConfig); // 初始化Firebase应用
-const db = getDatabase(app); // 获取数据库实例
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', () => { // 页面加载完成后运行的主函数
   const listContainer = document.getElementById('software-list'); // 获取显示软件列表的容器
