@@ -44,7 +44,7 @@
             const url = new URL(item.url);
             const hostname = url.hostname;
             if (hostname.includes('lanzou')) {
-              logoImg.src = '../网盘图标/蓝奏.PNG';
+              logoImg.src = '网盘图标/蓝奏.PNG';
             } else if (hostname.includes('baidu')) {
               logoImg.src = '网盘图标/百度.PNG';
             } else if (hostname.includes('quark')) {
