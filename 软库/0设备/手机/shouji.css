@@ -125,10 +125,10 @@ body { /* 设置页面主体样式 */
 }
 
 .search-icon { /* 搜索图标样式 */
-  width: 20px; /* 宽度 */
-  height: 20px; /* 高度 */
+  width: 26px; /* 宽度 */
+  height: 26px; /* 高度 */
   cursor: pointer; /* 鼠标变为指针 */
-  margin-right: 15px; /* 右侧外边距 */
+  margin-right: 25px; /* 右侧外边距 */
 }
 
 #search-input { /* 搜索输入框样式 */
