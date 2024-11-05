@@ -32,6 +32,9 @@ body { /* 设置页面主体样式 */
 .logo { /* 标志样式 */
   font-size: 1.2em; /* 字体大小 */
   font-weight: normal; /* 字体粗细 */
+  text-align: left; /* 左对齐文字 */
+  padding-left: 5px; /* 左侧内边距，控制文字与左边的距离 */
+  margin-right: auto;
 }
 
 .content-container { /* 主内容区域样式 */
