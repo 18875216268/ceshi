@@ -130,17 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   searchButton.addEventListener('click', () => { // 搜索按钮点击事件
-    const isVisible = searchInput.style.display === 'block'; // 检查输入框是否显示
-    searchInput.style.display = isVisible ? 'none' : 'block'; // 切换输入框的显示状态
-    if (isVisible) { // 如果输入框已经显示
       const query = searchInput.value.toLowerCase().trim(); // 获取输入内容并转换为小写
       if (query) { // 如果有搜索内容
-        const filteredData = currentData.filter(item => item.name.toLowerCase().includes(query)); // 筛选符合条件的数据
-        renderList(filteredData); // 渲染筛选后的数据
+          const filteredData = currentData.filter(item => item.name.toLowerCase().includes(query)); // 筛选符合条件的数据
+          renderList(filteredData); // 渲染筛选后的数据
       } else {
-        renderList(currentData); // 渲染完整数据
+          renderList(currentData); // 渲染完整数据
       }
-    }
   });
 
   homeButton.addEventListener('click', () => { // 主页按钮点击事件
