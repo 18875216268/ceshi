@@ -1,0 +1,41 @@
+/* HTML (shouji.html) */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知晓软件库</title>
+  <link rel="stylesheet" href="shouji.css">
+  <script type="module" src="shouji.js"></script>
+</head>
+<body>
+  <div class="header">
+    <div class="logo" id="logo">知晓(<span id="count">0</span>)</div>
+    <div class="search-container"> 
+      <img id="search-btn" src="搜索.png" alt="搜索" class="search-icon"> 
+      <input type="text" id="search-input" placeholder="搜索软件库">
+    </div>
+  </div>
+
+  <div class="content-container">
+    <div id="software-list" class="list-container">
+      <!-- 软件库列表将动态显示在这里 -->
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-item">
+      <img id="back-btn" src="返回.png" alt="返回">
+      <div class="footer-text">返回</div>
+    </div>
+    <div class="footer-item">
+      <img id="home-btn" src="主页.png" alt="主页">
+      <div class="footer-text">主页</div>
+    </div>
+    <div class="footer-item">
+      <img id="forward-btn" src="前进.png" alt="前进">
+      <div class="footer-text">前进</div>
+    </div>
+  </div>
+</body>
+</html>
