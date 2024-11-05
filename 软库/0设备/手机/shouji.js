@@ -44,19 +44,19 @@
             const url = new URL(item.url);
             const hostname = url.hostname;
             if (hostname.includes('lanzou')) {
-              logoImg.src = '网盘图标/蓝奏.PNG';
+              logoImg.src = '网盘图标/蓝奏.png';
             } else if (hostname.includes('baidu')) {
-              logoImg.src = '网盘图标/百度.PNG';
+              logoImg.src = '网盘图标/百度.png';
             } else if (hostname.includes('quark')) {
-              logoImg.src = '网盘图标/夸克.PNG';
+              logoImg.src = '网盘图标/夸克.png';
             } else if (hostname.includes('123')) {
-              logoImg.src = '网盘图标/123.PNG';
+              logoImg.src = '网盘图标/123.png';
             } else if (hostname.includes('feiji')) {
-              logoImg.src = '网盘图标/小飞机.PNG';
+              logoImg.src = '网盘图标/小飞机.png';
             } else if (hostname.includes('xunlei')) {
-              logoImg.src = '网盘图标/迅雷.PNG';
+              logoImg.src = '网盘图标/迅雷.png';
             } else if (hostname.includes('ali')) {
-              logoImg.src = '网盘图标/阿里.PNG';
+              logoImg.src = '网盘图标/阿里.png';
             } else {
               logoImg.src = '网盘图标/默认.png';
             }
