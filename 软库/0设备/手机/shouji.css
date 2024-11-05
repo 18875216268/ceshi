@@ -128,7 +128,7 @@ body { /* 设置页面主体样式 */
   width: 26px; /* 宽度 */
   height: 26px; /* 高度 */
   cursor: pointer; /* 鼠标变为指针 */
-  margin-right: 25px; /* 右侧外边距 */
+  margin-left: 5px; /* 左侧外边距 */
 }
 
 #search-input { /* 搜索输入框样式 */
@@ -136,5 +136,5 @@ body { /* 设置页面主体样式 */
   margin-left: 10px; /* 左侧外边距 */
   padding: 5px; /* 内边距 */
   border: 1px solid #ccc; /* 边框样式 */
-  border-radius: 5px; /* 圆角边框 */
+  border-radius: 20px; /* 圆角边框 */
 }
