@@ -115,8 +115,8 @@ body { /* 设置页面主体样式 */
 }
 
 .footer-item img { /* 底部按钮图标样式 */
-  width: 15px; /* 宽度 */
-  height: 15px; /* 高度 */
+  width: 20px; /* 宽度 */
+  height: 20px; /* 高度 */
   cursor: pointer; /* 鼠标变为指针 */
 }
 
@@ -126,8 +126,8 @@ body { /* 设置页面主体样式 */
 }
 
 .search-icon { /* 搜索图标样式 */
-  width: 30px; /* 宽度 */
-  height: 30px; /* 高度 */
+  width: 20px; /* 宽度 */
+  height: 20px; /* 高度 */
   cursor: pointer; /* 鼠标变为指针 */
 }
 
