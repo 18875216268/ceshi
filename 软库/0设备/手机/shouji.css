@@ -122,7 +122,6 @@ body { /* 设置页面主体样式 */
 
 .footer-text { /* 底部按钮文字样式 */
   font-size: 0.6em; /* 字体大小 */
-  margin-top: 3px; /* 顶部外边距 */
 }
 
 .search-icon { /* 搜索图标样式 */
