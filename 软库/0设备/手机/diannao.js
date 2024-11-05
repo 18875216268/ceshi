@@ -1,4 +1,3 @@
-// diannao.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
@@ -16,31 +15,40 @@ const firebaseConfig = {
 
 // 初始化 Firebase 应用
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app); // 获取数据库实例
+const database = getDatabase(app);
 
 // 加载软件列表数据
 function loadSoftwareList() {
-    const softwareListRef = ref(database, 'sites'); // 从 Firebase 数据库获取 'sites' 节点的数据
+    const softwareListRef = ref(database, 'sites');
     onValue(softwareListRef, (snapshot) => {
-        const softwareList = snapshot.val(); // 获取所有软件的列表数据
+        const softwareList = snapshot.val();
+        const container = document.getElementById('软件列表id');
+        container.innerHTML = '';
+
         if (!softwareList) {
-            // 如果数据库中没有数据，则显示无数据信息
-            document.getElementById('软件列表id').innerHTML = '<p>没有可显示的软件库</p>';
+            container.innerHTML = '<p>没有可显示的软件库</p>';
             return;
         }
 
-        const container = document.getElementById('软件列表id'); // 获取软件块的容器元素
-        container.innerHTML = ''; // 清空容器内容
-        const keys = Object.keys(softwareList); // 获取所有软件的 key
-
+        const keys = Object.keys(softwareList);
         keys.forEach((key) => {
-            const item = softwareList[key]; // 获取软件条目
-            const div = document.createElement('div'); // 创建一个新的 div 元素
-            div.className = '软件库块class'; // 设置样式类
-            div.innerHTML = `<span class="特效class 文字class">${item.name}</span>`; // 显示软件名称
-            div.setAttribute('role', 'listitem'); // 为无障碍支持设置 role 属性
-            div.setAttribute('tabindex', '0'); // 可通过键盘导航
-            container.appendChild(div); // 将新软件块添加到容器中
+            const item = softwareList[key];
+            const div = document.createElement('div');
+            div.className = '软件库块class';
+            div.innerHTML = `<span class="特效class 文字class">${item.name}</span>`;
+            div.setAttribute('role', 'listitem');
+            div.setAttribute('tabindex', '0');
+
+            // 添加点击事件监听器
+            div.addEventListener('click', () => {
+                if (item.url) {
+                    window.open(item.url, '_blank'); // 打开软件的链接
+                } else {
+                    alert('未找到该软件的链接');
+                }
+            });
+
+            container.appendChild(div);
         });
     });
 }
