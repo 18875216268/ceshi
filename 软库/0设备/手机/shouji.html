@@ -5,35 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>知晓软件库</title>
   <link rel="stylesheet" href="shouji.css">
-  <script type="module" src="shouji.js"></script>
+  <script src="https://unpkg.com/vue@3.2.31"></script>
+  <script src="https://unpkg.com/vue-router@4.0.12"></script>
 </head>
 <body>
-  <div class="header">
-    <div class="logo" id="logo" style="font-weight: normal; text-align: center; flex: 1;">
-      知晓(<span id="count" style="font-weight: normal;">0</span>)
+  <div id="app">
+    <div class="header">
+      <div class="logo" style="font-weight: normal; text-align: center; flex: 1;">
+        知晓(<span id="count">{{ softwareCount }}</span>)
+      </div>
+    </div>
+
+    <div class="content-container">
+      <router-view></router-view> <!-- Vue Router 视图，用于显示软件列表或详情 -->
+    </div>
+
+    <div class="footer">
+      <div class="footer-item" @click="goBack">
+        <img src="返回.png" alt="返回">
+        <div class="footer-text">返回</div>
+      </div>
+      <div class="footer-item" @click="goHome">
+        <img src="主页.png" alt="主页">
+        <div class="footer-text">主页</div>
+      </div>
+      <div class="footer-item" @click="goForward">
+        <img src="前进.png" alt="前进">
+        <div class="footer-text">前进</div>
+      </div>
     </div>
   </div>
 
-  <div class="content-container">
-    <div id="software-list" class="list-container">
-      <!-- 软件列表会通过JavaScript动态插入到此处 -->
-    </div>
-    <iframe id="content-frame" class="content-frame" style="display:none;"></iframe> <!-- 隐藏的 iframe，用于显示网页内容 -->
-  </div>
-
-  <div class="footer">
-    <div class="footer-item">
-      <img id="back-btn" src="返回.png" alt="返回">
-      <div class="footer-text">返回</div>
-    </div>
-    <div class="footer-item">
-      <img id="home-btn" src="主页.png" alt="主页">
-      <div class="footer-text">主页</div>
-    </div>
-    <div class="footer-item">
-      <img id="forward-btn" src="前进.png" alt="前进">
-      <div class="footer-text">前进</div>
-    </div>
-  </div>
+  <script type="module" src="main.js"></script>
 </body>
 </html>
