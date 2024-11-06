@@ -1,16 +1,16 @@
 body {
-  font-family: Arial, sans-serif; /* 设置全局字体 */
+  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 水平居中 */
+  align-items: center;
   height: 100vh;
   margin: 0;
   background-color: #f0f4ff;
 }
 
 #app {
-  width: 100%; /* 设置全宽 */
-  max-width: 600px; /* 与上下块宽度一致 */
+  width: 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +19,7 @@ body {
 .header {
   display: flex;
   align-items: center;
-  justify-content: center; /* 水平居中 */
+  justify-content: center;
   width: 100%;
   max-width: 600px;
   padding: 0;
@@ -27,7 +27,7 @@ body {
   position: fixed;
   top: 0;
   z-index: 10;
-  height: 7vh; /* 高度约占屏幕的 7% */
+  height: 7vh;
 }
 
 .logo {
@@ -41,9 +41,9 @@ body {
 .content-container {
   flex: 1;
   width: 100%;
-  max-width: 600px; /* 保持与上下块宽度一致 */
-  padding-top: 7vh; /* 顶部与 header 对齐 */
-  padding-bottom: 7vh; /* 底部与 footer 对齐 */
+  max-width: 600px;
+  padding-top: 7vh;
+  padding-bottom: 7vh;
   background-color: #f0f4ff;
   overflow-y: auto;
   box-sizing: border-box;
@@ -57,7 +57,7 @@ body {
 
 .list-container {
   width: 100%;
-  max-width: 600px; /* 与上下块一致的宽度 */
+  max-width: 600px;
   padding: 0;
   box-sizing: border-box;
 }
@@ -80,14 +80,14 @@ body {
 .text-logo-container {
   display: flex;
   align-items: center;
-  margin-left: 15px;
+  margin-left: 15px; /* 设置左侧距离与右侧保持一致 */
 }
 
 .software-text {
   font-size: 1em;
   text-align: left;
   margin-left: 10px;
-  flex: 1; /* 占满剩余空间，与 logo 图标左对齐 */
+  flex: 1;
 }
 
 .software-logo {
@@ -107,7 +107,7 @@ body {
 
 .content-frame {
   width: 100%;
-  height: calc(100vh - 14vh); /* 动态高度，填满上下块之间 */
+  height: calc(100vh - 14vh);
   border: none;
 }
 
