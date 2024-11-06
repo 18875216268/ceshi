@@ -1,6 +1,6 @@
 // eventHandlers.js
 import { goBack, goForward, goHome } from './historyManager.js';
-import { fetchData, renderList, renderContent, currentData } from './dataManager.js'; // 导入 currentData
+import { fetchData, renderList, renderContent, currentData } from './dataManager.js';
 
 // 设置事件绑定
 export function setupEventHandlers() {
@@ -8,9 +8,9 @@ export function setupEventHandlers() {
   const backButton = document.getElementById('back-btn');
   const forwardButton = document.getElementById('forward-btn');
 
-  homeButton.addEventListener('click', () => goHome(renderList, currentData));
-  backButton.addEventListener('click', () => goBack(renderList, renderContent));
-  forwardButton.addEventListener('click', () => goForward(renderList, renderContent));
+  homeButton.addEventListener('click', () => goHome(renderList, currentData)); // 回到主页
+  backButton.addEventListener('click', () => goBack(renderList, renderContent)); // 返回上一个页面
+  forwardButton.addEventListener('click', () => goForward(renderList, renderContent)); // 前进到下一个页面
 }
 
 // 初始化数据和事件
