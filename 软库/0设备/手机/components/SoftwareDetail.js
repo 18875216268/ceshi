@@ -3,12 +3,12 @@ import { ref, onValue } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-
 export default {
   template: `
     <div>
-      <iframe ref="iframe" :src="softwareUrl" class="content-frame"></iframe>
+      <iframe :src="softwareUrl" class="content-frame" ref="iframe"></iframe>
     </div>
   `,
   data() {
     return {
-      softwareUrl: '', // 初始化软件库页面 URL
+      softwareUrl: '', // 软件库页面的直接 URL
     };
   },
   inject: ['db'],
@@ -24,9 +24,7 @@ export default {
       onValue(softwareRef, (snapshot) => {
         const software = snapshot.val();
         if (software) {
-          const targetUrl = software.url;
-          // 使用代理服务器地址，转发目标 URL
-          this.softwareUrl = `https://daili-ruanjianku.vercel.app/proxy?url=${encodeURIComponent(targetUrl)}`;
+          this.softwareUrl = software.url; // 直接加载初始软件库的 URL
         }
       });
     },
@@ -35,13 +33,11 @@ export default {
 
       iframeDocument.addEventListener('click', (e) => {
         const target = e.target;
-
-        // 判断点击的是链接且有 href
+        
+        // 如果点击的是一个链接
         if (target.tagName === 'A' && target.href) {
           e.preventDefault(); // 阻止默认行为
-          const targetUrl = target.href;
-          // 使用代理服务器地址转发新链接 URL
-          this.softwareUrl = `https://daili-ruanjianku.vercel.app/proxy?url=${encodeURIComponent(targetUrl)}`;
+          this.softwareUrl = target.href; // 更新 iframe 中的 URL
           this.$refs.iframe.src = this.softwareUrl; // 在 iframe 中加载新页面
         }
       });
@@ -50,7 +46,11 @@ export default {
   mounted() {
     // 在 iframe 加载完内容后，开始监听其内部点击事件
     this.$refs.iframe.onload = () => {
-      this.handleIframeNavigation();
+      try {
+        this.handleIframeNavigation();
+      } catch (error) {
+        console.warn("无法访问 iframe 内部内容，可能是由于跨域限制");
+      }
     };
   },
 };
