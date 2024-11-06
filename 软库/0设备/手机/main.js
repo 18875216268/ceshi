@@ -1,11 +1,7 @@
-import { createApp } from 'https://unpkg.com/vue@3.2.31/dist/vue.esm-browser.js';
-import { createRouter, createWebHashHistory } from 'https://unpkg.com/vue-router@4.0.12/dist/vue-router.esm-browser.js';
-import SoftwareList from './components/SoftwareList.js';
-import SoftwareDetail from './components/SoftwareDetail.js';
-
-// Firebase 导入
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+import SoftwareList from './components/SoftwareList.js';
+import SoftwareDetail from './components/SoftwareDetail.js';
 
 // Firebase 配置
 const firebaseConfig = {
@@ -19,7 +15,7 @@ const firebaseConfig = {
   measurementId: "G-G7D5HRMF0E"
 };
 
-// Firebase 初始化
+// 初始化 Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
@@ -30,13 +26,13 @@ const routes = [
 ];
 
 // 创建 Vue Router 实例
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHashHistory(),
   routes,
 });
 
 // 创建 Vue 应用
-const vueApp = createApp({
+const vueApp = Vue.createApp({
   data() {
     return { softwareCount: 0 };
   },
