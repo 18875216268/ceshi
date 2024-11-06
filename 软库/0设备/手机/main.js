@@ -38,8 +38,8 @@ const vueApp = Vue.createApp({
   watch: {
     // 监听路由变化，每次导航都记录在历史栈中
     '$route'(to) {
+      // 如果当前索引在栈顶，直接添加新记录
       if (this.currentIndex === this.historyStack.length - 1) {
-        // 如果当前索引在栈顶，直接添加新记录
         this.historyStack.push(to.path);
         this.currentIndex++;
       } else {
@@ -52,17 +52,20 @@ const vueApp = Vue.createApp({
   },
   methods: {
     goBack() {
+      // 确保 currentIndex 不小于 0
       if (this.currentIndex > 0) {
         this.currentIndex--;
         this.$router.push(this.historyStack[this.currentIndex]);
       }
     },
     goHome() {
+      // 重置历史栈到主页
       this.$router.push('/');
       this.historyStack = ['/'];
       this.currentIndex = 0;
     },
     goForward() {
+      // 确保 currentIndex 不超过栈长度
       if (this.currentIndex < this.historyStack.length - 1) {
         this.currentIndex++;
         this.$router.push(this.historyStack[this.currentIndex]);
