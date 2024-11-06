@@ -3,6 +3,8 @@ import { ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase
 import { db } from './firebaseConfig.js';
 import { addToHistory } from './historyManager.js';
 
+export let currentData = []; // 导出 currentData 以便其他模块访问
+
 // 渲染软件列表
 export function renderList(data) {
   const listContainer = document.getElementById('software-list');
@@ -81,7 +83,7 @@ export function renderContent(url) {
 export function fetchData() {
   const sitesRef = ref(db, 'sites');
   onValue(sitesRef, (snapshot) => {
-    const currentData = [];
+    currentData = []; // 清空并重新填充 currentData
     snapshot.forEach((childSnapshot) => {
       currentData.push(childSnapshot.val());
     });
