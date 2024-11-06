@@ -1,133 +1,132 @@
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f5f5f5;
+body { /* 页面主体样式 */
+  font-family: Arial, sans-serif; /* 设置全局字体 */
+  display: flex; /* 使用flex布局 */
+  flex-direction: column; /* 垂直排列 */
+  align-items: center; /* 水平居中对齐内容 */
+  height: 100vh; /* 占满视口高度 */
+  margin: 0; /* 去除默认外边距 */
+  background-color: #f5f5f5; /* 背景颜色 */
 }
 
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 600px;
-  padding: 10px 0;
-  background-color: #f0f4ff;
-  position: fixed;
-  z-index: 10;
-  bottom: 0;
-  justify-content: space-around;
+.footer { /* 底部导航栏样式 */
+  display: flex; /* 使用flex布局 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  width: 100%; /* 占满宽度 */
+  max-width: 600px; /* 最大宽度 */
+  padding: 10px 0; /* 上下内边距 */
+  background-color: #f0f4ff; /* 底部背景颜色 */
+  position: fixed; /* 固定在页面底部 */
+  z-index: 10; /* 设置层级，确保在最前 */
+  bottom: 0; /* 固定在页面底部 */
+  justify-content: space-around; /* 各按钮均匀分布 */
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 600px;
-  padding: 10px 0;
-  background-color: #f0f4ff;
-  position: fixed;
-  top: 0;
-  z-index: 10;
+.header { /* 顶部导航栏样式 */
+  display: flex; /* 使用flex布局 */
+  align-items: center; /* 垂直居中 */
+  width: 100%; /* 占满宽度 */
+  max-width: 600px; /* 最大宽度 */
+  padding: 10px 0; /* 上下内边距 */
+  background-color: #f0f4ff; /* 顶部背景颜色 */
+  position: fixed; /* 固定在页面顶部 */
+  top: 0; /* 固定在页面顶部 */
+  z-index: 10; /* 设置层级 */
 }
 
-.logo {
-  font-size: 1.2em;
-  font-weight: normal;
-  text-align: left;
-  padding-left: 10px;
-  margin-right: auto;
+.logo { /* Logo样式 */
+  font-size: 1.2em; /* 字体大小 */
+  font-weight: normal; /* 正常字体粗细 */
+  text-align: left; /* 左对齐文字 */
+  padding-left: 10px; /* 左侧内边距 */
+  margin-right: auto; /* 将logo左对齐 */
 }
 
-.content-container {
-  flex: 1;
-  width: 100%;
-  max-width: 600px;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  overflow-y: auto;
-  padding: 0;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.content-container { /* 主内容区域样式 */
+  flex: 1; /* 占据剩余空间 */
+  width: 100%; /* 占满宽度 */
+  max-width: 600px; /* 最大宽度 */
+  margin-top: 60px; /* 顶部外边距，避免覆盖导航栏 */
+  margin-bottom: 60px; /* 底部外边距，避免覆盖底部栏 */
+  overflow-y: auto; /* 垂直方向滚动 */
+  padding: 0; /* 去除内边距 */
+  -ms-overflow-style: none; /* IE和Edge的滚动条样式 */
+  scrollbar-width: none; /* Firefox的滚动条样式 */
 }
 
-.content-container::-webkit-scrollbar {
+.content-container::-webkit-scrollbar { /* 隐藏滚动条 */
   display: none;
 }
 
-.list-container {
-  width: 100%;
-  max-width: 600px;
-  height: 100%;
-  text-align: left;
-  padding: 0;
+.list-container { /* 列表容器样式 */
+  width: 100%; /* 占满宽度 */
+  max-width: 600px; /* 最大宽度 */
+  height: 100%; /* 高度 */
+  text-align: left; /* 左对齐 */
+  padding: 0; /* 去除内边距 */
 }
 
-.software-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  width: 100%;
-  max-width: 600px;
-  border-bottom: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  background-color: #f0f4ff;
+.software-item { /* 软件列表项样式 */
+  display: flex; /* 使用flex布局 */
+  justify-content: space-between; /* 两端对齐 */
+  align-items: center; /* 垂直居中 */
+  padding: 10px 0; /* 上下内边距 */
+  width: 100%; /* 占满宽度 */
+  max-width: 600px; /* 最大宽度 */
+  cursor: pointer; /* 鼠标变为指针 */
+  transition: background-color 0.3s; /* 背景颜色过渡效果 */
+  background-color: #f0f4ff; /* 列表项背景色 */
 }
 
-.software-item:hover {
-  background-color: #e0e0e0;
+.software-item:hover { /* 列表项悬停样式 */
+  background-color: #e0e0e0; /* 改变背景色 */
 }
 
-.text-logo-container {
-  display: flex;
-  align-items: center;
-  margin-left: 15px;
+.text-logo-container { /* 图标和文字容器 */
+  display: flex; /* 使用flex布局 */
+  align-items: center; /* 垂直居中 */
+  margin-left: 15px; /* 左侧外边距 */
 }
 
-.software-text {
-  font-size: 1em;
-  text-align: left;
-  margin-left: 10px;
+.software-text { /* 软件名称文字样式 */
+  font-size: 1em; /* 字体大小 */
+  text-align: left; /* 左对齐 */
+  margin-left: 10px; /* 左侧外边距 */
 }
 
-.software-logo {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+.software-logo { /* 软件图标样式 */
+  width: 30px; /* 宽度 */
+  height: 30px; /* 高度 */
+  border-radius: 50%; /* 圆形图标 */
 }
 
-.load-time {
-  font-size: 0.8em;
-  color: #888;
-  text-align: right;
-  white-space: nowrap;
-  margin-left: 15px;
-  margin-right: 20px;
+.load-time { /* 加载时间文字样式 */
+  font-size: 0.8em; /* 字体大小 */
+  color: #888; /* 文字颜色 */
+  text-align: right; /* 右对齐 */
+  white-space: nowrap; /* 不换行 */
+  margin-left: 15px; /* 左侧外边距 */
+  margin-right: 20px; /* 右侧外边距 */
 }
 
-.content-frame {
-  width: 100%;
-  height: calc(100vh - 120px);
-  border: none;
+.content-frame { /* iframe嵌入内容样式 */
+  width: 100%; /* 宽度 */
+  height: calc(100vh - 120px); /* 动态高度，填满可用空间 */
+  border: none; /* 去除边框 */
 }
 
-.footer-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.footer-item { /* 底部导航项样式 */
+  display: flex; /* 使用flex布局 */
+  flex-direction: column; /* 垂直排列 */
+  align-items: center; /* 水平居中 */
 }
 
-.footer-item img {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+.footer-item img { /* 底部图标样式 */
+  width: 20px; /* 图标宽度 */
+  height: 20px; /* 图标高度 */
+  cursor: pointer; /* 鼠标变为指针 */
 }
 
-.footer-text {
-  font-size: 0.6em;
+.footer-text { /* 底部文字样式 */
+  font-size: 0.6em; /* 字体大小 */
 }
