@@ -1,41 +1,37 @@
 <!DOCTYPE html> <!-- 声明文档类型为HTML5 -->
-<html lang="en"> <!-- 设置文档语言为英文 -->
+<html lang="en"> <!-- 设置语言为英文 -->
 <head>
-  <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8，保证显示中文等特殊字符 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 设置视口宽度，适应移动设备 -->
-  <title>知晓软件库</title> <!-- 设置页面的标题，显示在浏览器标签上 -->
-  <link rel="stylesheet" href="shouji.css"> <!-- 引入外部CSS样式文件，控制页面样式 -->
-  <script type="module" src="shouji.js"></script> <!-- 引入外部JavaScript模块，控制页面逻辑 -->
+  <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 设置视口以适应移动设备的宽度，初始缩放比例为1.0 -->
+  <title>知晓软件库</title> <!-- 设置页面标题 -->
+  <link rel="stylesheet" href="shouji.css"> <!-- 引入外部样式表 -->
+  <script type="module" src="shouji.js"></script> <!-- 引入外部JavaScript模块 -->
 </head>
 <body>
-  <!-- 顶部导航栏 -->
-  <div class="header">
-    <!-- 显示网站Logo和软件计数 -->
+  <div class="header"> <!-- 顶部导航栏 -->
     <div class="logo" id="logo" style="font-weight: normal; text-align: center; flex: 1;">
-      知晓(<span id="count" style="font-weight: normal;">0</span>) <!-- 动态显示软件库中的软件数量 -->
+      知晓(<span id="count" style="font-weight: normal;">0</span>) <!-- 显示软件数量的动态计数 -->
     </div>
   </div>
 
-  <!-- 主内容区域，展示软件列表 -->
-  <div class="content-container" style="margin-top: 0;">
+  <div class="content-container"> <!-- 主内容区域，展示软件列表 -->
     <div id="software-list" class="list-container">
       <!-- 软件列表会通过JavaScript动态插入到此处 -->
     </div>
   </div>
 
-  <!-- 底部导航栏，提供返回、主页和前进功能 -->
-  <div class="footer">
+  <div class="footer"> <!-- 底部导航栏 -->
     <div class="footer-item"> <!-- 返回按钮 -->
-      <img id="back-btn" src="返回.png" alt="返回"> <!-- 返回按钮图标 -->
-      <div class="footer-text">返回</div> <!-- 返回按钮说明文字 -->
+      <img id="back-btn" src="返回.png" alt="返回"> <!-- 返回图标 -->
+      <div class="footer-text">返回</div> <!-- 返回文字说明 -->
     </div>
     <div class="footer-item"> <!-- 主页按钮 -->
-      <img id="home-btn" src="主页.png" alt="主页"> <!-- 主页按钮图标 -->
-      <div class="footer-text">主页</div> <!-- 主页按钮说明文字 -->
+      <img id="home-btn" src="主页.png" alt="主页"> <!-- 主页图标 -->
+      <div class="footer-text">主页</div> <!-- 主页文字说明 -->
     </div>
     <div class="footer-item"> <!-- 前进按钮 -->
-      <img id="forward-btn" src="前进.png" alt="前进"> <!-- 前进按钮图标 -->
-      <div class="footer-text">前进</div> <!-- 前进按钮说明文字 -->
+      <img id="forward-btn" src="前进.png" alt="前进"> <!-- 前进图标 -->
+      <div class="footer-text">前进</div> <!-- 前进文字说明 -->
     </div>
   </div>
 </body>
