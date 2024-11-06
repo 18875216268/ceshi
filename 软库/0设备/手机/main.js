@@ -3,7 +3,6 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.
 import SoftwareList from './components/SoftwareList.js';
 import SoftwareDetail from './components/SoftwareDetail.js';
 
-// Firebase 配置
 const firebaseConfig = {
   apiKey: "AIzaSyDk5p6EJAe02LEeqhQm1Z1dZxlIqGrRcUo",
   authDomain: "asqrt-ed615.firebaseapp.com",
@@ -15,30 +14,28 @@ const firebaseConfig = {
   measurementId: "G-G7D5HRMF0E"
 };
 
-// 初始化 Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// 路由配置
 const routes = [
   { path: '/', component: SoftwareList },
   { path: '/software/:id', component: SoftwareDetail },
 ];
 
-// 创建 Vue Router 实例
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
   routes,
 });
 
-// 创建 Vue 应用
 const vueApp = Vue.createApp({
   data() {
     return { softwareCount: 0 };
   },
   methods: {
     goBack() {
-      this.$router.back();
+      if (this.$router.options.history.state.back) { // 检查是否有内部页面导航
+        this.$router.back();
+      }
     },
     goHome() {
       this.$router.push('/');
@@ -49,6 +46,6 @@ const vueApp = Vue.createApp({
   },
 });
 
-vueApp.provide('db', db); // 提供 Firebase 数据库实例给所有组件使用
+vueApp.provide('db', db);
 vueApp.use(router);
 vueApp.mount('#app');
