@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderList = (data) => { 
     document.getElementById('count').textContent = data.length; // 更新软件计数显示
     listContainer.innerHTML = ''; // 清空列表容器
+
+    if (data.length === 0) { // 如果没有找到数据
+      listContainer.innerHTML = '<p>暂无可用软件</p>'; // 显示“暂无可用软件”的提示
+      return; // 终止函数执行
     }
 
     data.forEach(item => { // 遍历每个软件项目
@@ -90,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderContent(item.url); // 显示软件内容
       });
 
-      listItem.addEventListener('mouseenter', () => { // 鼠标悬停事件
+      listItem.addEventListener('mouseenter', () => { // 鼠标悬浮事件
         listItem.style.backgroundColor = '#e0e0e0'; // 改变背景颜色
       });
 
