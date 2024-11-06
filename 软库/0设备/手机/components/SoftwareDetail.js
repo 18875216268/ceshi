@@ -9,12 +9,13 @@ export default {
       softwareUrl: '',
     };
   },
+  inject: ['db'], // 注入 Firebase 数据库实例
   created() {
     this.loadSoftware();
   },
   methods: {
     loadSoftware() {
-      const db = this.$root.$options.provides.db;
+      const db = this.db; // 使用注入的 db 实例
       const softwareId = this.$route.params.id;
       const softwareRef = ref(db, `sites/${softwareId}`);
       
