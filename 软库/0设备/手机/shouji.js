@@ -35,21 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('count').textContent = data.length; // 更新软件计数显示
     listContainer.innerHTML = ''; // 清空列表容器
 
-    // 保持搜索框在列表顶部
-    const searchContainer = document.createElement('div');
-    searchContainer.className = 'search-container';
-    searchContainer.style.cssText = 'display: flex; align-items: center; padding: 10px; background-color: #f0f4ff;';
-    searchContainer.innerHTML = `
-      <input type="text" id="search-input" style="flex: 1; margin-left: 10px; padding: 5px; border: 1px solid #ccc; border-radius: 20px;" placeholder="搜索软件库">
-      <img id="search-btn" src="搜索.png" alt="搜索" class="search-icon" style="margin-left: 10px; cursor: pointer;">
-    `;
-    listContainer.appendChild(searchContainer);
-
-    if (data.length === 0) { // 如果没有找到数据
-      listContainer.innerHTML += '<p>未搜索到软件库</p>'; // 显示“未搜索到软件库”的提示
-      return; // 终止函数执行
-    }
-
     data.forEach(item => { // 遍历每个软件项目
       const listItem = document.createElement('div'); // 创建列表项元素
       listItem.classList.add('software-item'); // 为列表项添加样式类
@@ -137,16 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
       renderList(currentData); // 渲染数据列表
     });
   };
-
-  searchButton.addEventListener('click', () => { // 搜索按钮点击事件
-      const query = searchInput.value.toLowerCase().trim(); // 获取输入内容并转换为小写
-      if (query) { // 如果有搜索内容
-          const filteredData = currentData.filter(item => item.name.toLowerCase().includes(query)); // 筛选符合条件的数据
-          renderList(filteredData); // 渲染筛选后的数据
-      } else {
-          renderList(currentData); // 渲染完整数据
-      }
-  });
 
   homeButton.addEventListener('click', () => { // 主页按钮点击事件
     window.location.href = 'https://www.quruanpu.cn'; // 跳转到主页
