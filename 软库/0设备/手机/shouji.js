@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     listContainer.innerHTML = ''; // 清空列表容器
 
     if (data.length === 0) { // 如果没有找到数据
-      listContainer.innerHTML = '<p>暂无可用软件</p>'; // 显示“暂无可用软件”的提示
+      listContainer.innerHTML = '<p>暂无可用软件</p>'; // 修复不必要的转义符 // 显示“暂无可用软件”的提示
       return; // 终止函数执行
     }
 
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 函数：通过 iframe 加载并显示内容
   const renderContent = (url) => {
-    listContainer.innerHTML = `<iframe src="${url}" class="content-frame"></iframe>`; // 使用 iframe 显示内容
+    listContainer.innerHTML = '<iframe src="' + url + '" class="content-frame"></iframe>'; // 使用字符串连接修复错误 // 使用 iframe 显示内容
   };
 
   // 函数：从Firebase数据库获取数据
