@@ -1,3 +1,5 @@
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+
 export default {
   template: `
     <div>
