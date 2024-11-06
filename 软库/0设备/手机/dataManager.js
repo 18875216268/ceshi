@@ -1,11 +1,6 @@
-// dataManager.js
-import { ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-import { db } from './firebaseConfig.js';
+// 在 dataManager.js 中对点击事件进行修改，确保目录层级信息被正确存储到历史中
 import { addToHistory } from './historyManager.js';
 
-export let currentData = []; // 导出 currentData 以便其他模块访问
-
-// 渲染软件列表
 export function renderList(data) {
   const listContainer = document.getElementById('software-list');
   document.getElementById('count').textContent = data.length;
@@ -73,7 +68,6 @@ export function renderList(data) {
   });
 }
 
-// 渲染内容到 iframe
 export function renderContent(url) {
   const listContainer = document.getElementById('software-list');
   listContainer.innerHTML = `<iframe src="${url}" class="content-frame"></iframe>`;
@@ -92,20 +86,7 @@ export function renderContent(url) {
         }
       });
     } catch (error) {
-      console.warn("无法访问 iframe 内部内容，可能是由于跨域限制");
+      console.warn('无法访问 iframe 内部内容，可能是由于跨域限制');
     }
   };
-}
-
-// 获取数据
-export function fetchData() {
-  const sitesRef = ref(db, 'sites');
-  onValue(sitesRef, (snapshot) => {
-    currentData = []; // 清空并重新填充 currentData
-    snapshot.forEach((childSnapshot) => {
-      currentData.push(childSnapshot.val());
-    });
-    addToHistory({ type: 'list', data: currentData }); // 初始列表页添加到历史
-    renderList(currentData);
-  });
 }
