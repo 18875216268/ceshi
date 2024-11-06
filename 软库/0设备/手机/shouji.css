@@ -5,7 +5,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f5f5f5;
+  background-color: #f0f4ff;
 }
 
 .header {
@@ -18,7 +18,7 @@ body {
   position: fixed;
   top: 0;
   z-index: 10;
-  height: 10vh; /* 动态高度，约占屏幕10% */
+  height: 7vh; /* 动态高度，约占屏幕7% */
 }
 
 .logo {
@@ -99,7 +99,7 @@ body {
 
 .content-frame {
   width: 100%;
-  height: calc(100vh - 20vh); /* 动态高度，计算中间区域 */
+  height: calc(100vh - 14vh); /* 动态高度，计算中间区域 */
   border: none;
 }
 
@@ -114,7 +114,7 @@ body {
   position: fixed;
   z-index: 10;
   bottom: 0;
-  height: 10vh; /* 动态高度，约占屏幕10% */
+  height: 7vh; /* 动态高度，约占屏幕7% */
   justify-content: space-around;
 }
 
