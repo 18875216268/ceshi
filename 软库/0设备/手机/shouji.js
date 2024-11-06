@@ -1,4 +1,3 @@
-// 导入Firebase的核心模块和实时数据库模块
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"; // 初始化Firebase应用
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"; // 实时数据库相关功能
 
@@ -36,8 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('count').textContent = data.length; // 更新软件计数显示
     listContainer.innerHTML = ''; // 清空列表容器
 
+    // 保持搜索框在列表顶部
+    const searchContainer = document.createElement('div');
+    searchContainer.className = 'search-container';
+    searchContainer.style.cssText = 'display: flex; align-items: center; padding: 10px; background-color: #f0f4ff;';
+    searchContainer.innerHTML = `
+      <input type="text" id="search-input" style="flex: 1; margin-left: 10px; padding: 5px; border: 1px solid #ccc; border-radius: 20px;" placeholder="搜索软件库">
+      <img id="search-btn" src="搜索.png" alt="搜索" class="search-icon" style="margin-left: 10px; cursor: pointer;">
+    `;
+    listContainer.appendChild(searchContainer);
+
     if (data.length === 0) { // 如果没有找到数据
-      listContainer.innerHTML = '<p>未搜索到软件库</p>'; // 显示“未搜索到软件库”的提示
+      listContainer.innerHTML += '<p>未搜索到软件库</p>'; // 显示“未搜索到软件库”的提示
       return; // 终止函数执行
     }
 
