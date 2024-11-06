@@ -1,3 +1,4 @@
+// 在 dataManager.js 中对点击事件进行修改，确保目录层级信息被正确存储到历史中
 import { addToHistory } from './historyManager.js';
 
 export function renderList(data) {
