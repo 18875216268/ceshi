@@ -1,159 +1,156 @@
-// 导入Firebase核心模块和实时数据库模块
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-// Firebase 配置信息，用于连接Firebase项目
 const firebaseConfig = {
-  apiKey: "AIzaSyDk5p6EJAe02LEeqhQm1Z1dZxlIqGrRcUo", // Firebase API 密钥
-  authDomain: "asqrt-ed615.firebaseapp.com", // 授权域
-  databaseURL: "https://asqrt-ed615-default-rtdb.firebaseio.com", // Firebase数据库URL
-  projectId: "asqrt-ed615", // Firebase项目ID
-  storageBucket: "asqrt-ed615.firebasestorage.app", // Firebase存储桶
-  messagingSenderId: "131720495048", // 消息发送ID
-  appId: "1:131720495048:web:35f43929e31c1cc3428afd", // Firebase应用ID
-  measurementId: "G-G7D5HRMF0E" // Firebase测量ID
+  apiKey: "AIzaSyDk5p6EJAe02LEeqhQm1Z1dZxlIqGrRcUo",
+  authDomain: "asqrt-ed615.firebaseapp.com",
+  databaseURL: "https://asqrt-ed615-default-rtdb.firebaseio.com",
+  projectId: "asqrt-ed615",
+  storageBucket: "asqrt-ed615.firebasestorage.app",
+  messagingSenderId: "131720495048",
+  appId: "1:131720495048:web:35f43929e31c1cc3428afd",
+  measurementId: "G-G7D5HRMF0E"
 };
 
-// 初始化Firebase应用
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app); // 获取Firebase数据库实例
+const db = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const listContainer = document.getElementById('software-list'); // 获取显示软件列表的容器
-  const homeButton = document.getElementById('home-btn'); // 获取主页按钮
-  const backButton = document.getElementById('back-btn'); // 获取返回按钮
-  const forwardButton = document.getElementById('forward-btn'); // 获取前进按钮
+  const listContainer = document.getElementById('software-list');
+  const contentFrame = document.getElementById('content-frame'); // iframe 元素，用于显示网页内容
+  const homeButton = document.getElementById('home-btn');
+  const backButton = document.getElementById('back-btn');
+  const forwardButton = document.getElementById('forward-btn');
 
-  let currentData = []; // 存储从数据库获取的软件数据
-  let history = []; // 保存浏览历史记录
-  let historyIndex = -1; // 当前历史记录位置
+  let currentData = [];
+  let history = [];
+  let historyIndex = -1;
 
-  // 函数：渲染软件列表
   const renderList = (data) => {
-    document.getElementById('count').textContent = data.length; // 更新软件计数
-    listContainer.innerHTML = ''; // 清空列表容器
+    document.getElementById('count').textContent = data.length;
+    listContainer.innerHTML = '';
 
-    if (data.length === 0) { // 无数据时显示提示
+    if (data.length === 0) {
       listContainer.innerHTML = '<p>未搜索到软件库</p>';
       return;
     }
 
-    data.forEach(item => { // 遍历每个软件项目
-      const listItem = document.createElement('div'); // 创建列表项
-      listItem.classList.add('software-item'); // 添加样式类
+    data.forEach(item => {
+      const listItem = document.createElement('div');
+      listItem.classList.add('software-item');
 
-      const logoImg = document.createElement('img'); // 创建软件图标
+      const logoImg = document.createElement('img');
       try {
-        const url = new URL(item.url); // 解析软件链接
-        const hostname = url.hostname; // 获取主机名
-        // 根据主机名设置不同网盘图标
-        if (hostname.includes('lanzou')) {
-          logoImg.src = '网盘图标/蓝奏.png';
-        } else if (hostname.includes('baidu')) {
-          logoImg.src = '网盘图标/百度.png';
-        } else if (hostname.includes('quark')) {
-          logoImg.src = '网盘图标/夸克.png';
-        } else if (hostname.includes('123')) {
-          logoImg.src = '网盘图标/123.png';
-        } else if (hostname.includes('feiji')) {
-          logoImg.src = '网盘图标/小飞机.png';
-        } else if (hostname.includes('xunlei')) {
-          logoImg.src = '网盘图标/迅雷.png';
-        } else if (hostname.includes('ali')) {
-          logoImg.src = '网盘图标/阿里.png';
-        } else {
-          logoImg.src = '网盘图标/默认.png'; // 默认图标
-        }
+        const url = new URL(item.url);
+        const hostname = url.hostname;
+        logoImg.src = getLogoUrl(hostname);
       } catch (e) {
-        console.error('Invalid URL:', item.url); // 错误处理
+        console.error('Invalid URL:', item.url);
         logoImg.src = '网盘图标/默认.png';
       }
-      logoImg.alt = 'Logo'; // 设置alt文本
-      logoImg.classList.add('software-logo'); // 添加样式类
+      logoImg.alt = 'Logo';
+      logoImg.classList.add('software-logo');
 
-      const textLogoContainer = document.createElement('div'); // 图标和名称容器
+      const textLogoContainer = document.createElement('div');
       textLogoContainer.classList.add('text-logo-container');
       textLogoContainer.appendChild(logoImg);
 
-      const textDiv = document.createElement('div'); // 创建软件名称
+      const textDiv = document.createElement('div');
       textDiv.classList.add('software-text');
-      textDiv.textContent = item.name; // 设置软件名称
+      textDiv.textContent = item.name;
       textLogoContainer.appendChild(textDiv);
 
-      const loadTime = document.createElement('div'); // 创建加载时间显示
+      const loadTime = document.createElement('div');
       loadTime.classList.add('load-time');
       loadTime.textContent = Math.floor(Math.random() * 100) + ' ms';
 
-      listItem.appendChild(textLogoContainer); // 添加图标和名称
-      listItem.appendChild(loadTime); // 添加加载时间
+      listItem.appendChild(textLogoContainer);
+      listItem.appendChild(loadTime);
 
-      listItem.addEventListener('click', () => { // 点击事件：打开软件链接
-        history = history.slice(0, historyIndex + 1); // 截断历史记录
-        history.push({ type: 'content', url: item.url }); // 加入历史记录
-        historyIndex++; // 更新历史索引
-        renderContent(item.url); // 显示软件内容
+      listItem.addEventListener('click', () => {
+        history = history.slice(0, historyIndex + 1);
+        history.push({ type: 'content', url: item.url });
+        historyIndex++;
+        loadContentInIframe(item.url); // 加载内容到 iframe
       });
 
-      listItem.addEventListener('mouseenter', () => { // 悬停效果
-        listItem.style.backgroundColor = '#e0e0e0';
-      });
-
-      listItem.addEventListener('mouseleave', () => { // 恢复背景色
-        listItem.style.backgroundColor = 'transparent';
-      });
-
-      listContainer.appendChild(listItem); // 将列表项加入列表容器
+      listContainer.appendChild(listItem);
     });
   };
 
-  // 函数：通过 iframe 加载并显示内容
-  const renderContent = (url) => {
-    listContainer.innerHTML = `<iframe src="${url}" class="content-frame"></iframe>`; // 用iframe显示内容
+  const loadContentInIframe = (url) => {
+    contentFrame.src = url; // 设置 iframe 的 src 为点击的软件库链接
+    contentFrame.style.display = 'block'; // 显示 iframe
+    listContainer.style.display = 'none'; // 隐藏软件列表
+
+    // 添加事件监听器，拦截 iframe 内部链接点击事件
+    contentFrame.onload = () => {
+      contentFrame.contentWindow.document.body.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') { // 检查是否为链接
+          e.preventDefault(); // 阻止默认跳转行为
+          loadContentInIframe(e.target.href); // 加载新链接到 iframe 中
+        }
+      });
+    };
   };
 
-  // 函数：从Firebase数据库获取数据
+  const getLogoUrl = (hostname) => {
+    if (hostname.includes('lanzou')) return '网盘图标/蓝奏.png';
+    if (hostname.includes('baidu')) return '网盘图标/百度.png';
+    if (hostname.includes('quark')) return '网盘图标/夸克.png';
+    if (hostname.includes('123')) return '网盘图标/123.png';
+    if (hostname.includes('feiji')) return '网盘图标/小飞机.png';
+    if (hostname.includes('xunlei')) return '网盘图标/迅雷.png';
+    if (hostname.includes('ali')) return '网盘图标/阿里.png';
+    return '网盘图标/默认.png';
+  };
+
   const fetchData = () => {
-    const sitesRef = ref(db, 'sites'); // 数据库引用
-    onValue(sitesRef, (snapshot) => { // 监听数据变化
-      currentData = []; // 清空当前数据
-      snapshot.forEach((childSnapshot) => { // 遍历数据节点
-        const childData = childSnapshot.val(); // 获取数据
-        currentData.push(childData); // 存入当前数据数组
+    const sitesRef = ref(db, 'sites');
+    onValue(sitesRef, (snapshot) => {
+      currentData = [];
+      snapshot.forEach((childSnapshot) => {
+        const childData = childSnapshot.val();
+        currentData.push(childData);
       });
-      history = history.slice(0, historyIndex + 1); // 更新历史记录
+      history = history.slice(0, historyIndex + 1);
       history.push({ type: 'list', data: currentData });
       historyIndex++;
-      renderList(currentData); // 渲染软件列表
+      renderList(currentData);
     });
   };
 
-  homeButton.addEventListener('click', () => { // 主页按钮点击事件
-    window.location.href = 'https://www.quruanpu.cn'; // 跳转到主页
+  homeButton.addEventListener('click', () => {
+    window.location.href = 'https://www.quruanpu.cn';
   });
 
-  backButton.addEventListener('click', () => { // 返回按钮点击事件
-    if (historyIndex > 0) { // 如果有历史记录
-      historyIndex--; // 更新历史索引
-      const previousState = history[historyIndex]; // 获取上一个历史状态
-      if (previousState.type === 'list') { // 如果是列表
-        renderList(previousState.data); // 渲染列表
-      } else if (previousState.type === 'content') { // 如果是内容
-        renderContent(previousState.url); // 显示内容
+  backButton.addEventListener('click', () => {
+    if (historyIndex > 0) {
+      historyIndex--;
+      const previousState = history[historyIndex];
+      if (previousState.type === 'list') {
+        contentFrame.style.display = 'none';
+        listContainer.style.display = 'block';
+        renderList(previousState.data);
+      } else if (previousState.type === 'content') {
+        loadContentInIframe(previousState.url);
       }
     }
   });
 
-  forwardButton.addEventListener('click', () => { // 前进按钮点击事件
-    if (historyIndex < history.length - 1) { // 如果可以前进
-      historyIndex++; // 更新历史索引
-      const nextState = history[historyIndex]; // 获取下一个历史状态
-      if (nextState.type === 'list') { // 如果是列表
-        renderList(nextState.data); // 渲染列表
-      } else if (nextState.type === 'content') { // 如果是内容
-        renderContent(nextState.url); // 显示内容
+  forwardButton.addEventListener('click', () => {
+    if (historyIndex < history.length - 1) {
+      historyIndex++;
+      const nextState = history[historyIndex];
+      if (nextState.type === 'list') {
+        contentFrame.style.display = 'none';
+        listContainer.style.display = 'block';
+        renderList(nextState.data);
+      } else if (nextState.type === 'content') {
+        loadContentInIframe(nextState.url);
       }
     }
   });
 
-  fetchData(); // 调用获取数据函数，初始化软件列表
+  fetchData();
 });
