@@ -13,12 +13,12 @@ body {
   align-items: center;
   width: 100%;
   max-width: 600px;
-  padding: 0; /* 移除内边距 */
+  padding: 0;
   background-color: #f0f4ff;
   position: fixed;
   top: 0;
   z-index: 10;
-  height: 60px; /* 固定高度，确保与内容容器紧贴 */
+  height: 10vh; /* 动态高度，约占屏幕10% */
 }
 
 .logo {
@@ -26,19 +26,19 @@ body {
   font-weight: normal;
   text-align: left;
   padding-left: 10px;
-  margin: 0; /* 确保无外边距 */
+  margin: 0;
 }
 
 .content-container {
   flex: 1;
   width: 100%;
   max-width: 600px;
-  margin: 0; /* 移除外边距 */
-  padding: 0; /* 移除内边距 */
+  margin: 0;
+  padding: 0;
   overflow-y: auto;
-  box-sizing: border-box; /* 包含内边距和边框 */
-  margin-top: 60px; /* 确保内容紧贴 header */
-  margin-bottom: 60px; /* 确保内容紧贴 footer */
+  box-sizing: border-box;
+  margin-top: 10vh; /* 使内容与 header 紧贴 */
+  margin-bottom: 10vh; /* 使内容与 footer 紧贴 */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -99,7 +99,7 @@ body {
 
 .content-frame {
   width: 100%;
-  height: calc(100vh - 120px); /* 动态计算内容框的高度 */
+  height: calc(100vh - 20vh); /* 动态高度，计算中间区域 */
   border: none;
 }
 
@@ -109,12 +109,12 @@ body {
   justify-content: center;
   width: 100%;
   max-width: 600px;
-  padding: 0; /* 移除内边距 */
+  padding: 0;
   background-color: #f0f4ff;
   position: fixed;
   z-index: 10;
   bottom: 0;
-  height: 60px; /* 固定高度，与内容容器紧贴 */
+  height: 10vh; /* 动态高度，约占屏幕10% */
   justify-content: space-around;
 }
 
