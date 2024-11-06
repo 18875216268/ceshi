@@ -65,7 +65,7 @@ export function renderList(data) {
     listItem.appendChild(loadTime);
 
     listItem.addEventListener('click', () => {
-      addToHistory({ type: 'content', url: item.url });
+      addToHistory({ type: 'content', url: item.url }); // 将内容页面添加到历史
       renderContent(item.url);
     });
 
@@ -87,7 +87,7 @@ export function fetchData() {
     snapshot.forEach((childSnapshot) => {
       currentData.push(childSnapshot.val());
     });
-    addToHistory({ type: 'list', data: currentData });
+    addToHistory({ type: 'list', data: currentData }); // 初始列表页添加到历史
     renderList(currentData);
   });
 }
