@@ -11,6 +11,13 @@ export function setupEventHandlers() {
   homeButton.addEventListener('click', () => goHome(renderList, currentData)); // 回到主页
   backButton.addEventListener('click', () => goBack(renderList, renderContent)); // 返回上一个页面
   forwardButton.addEventListener('click', () => goForward(renderList, renderContent)); // 前进到下一个页面
+
+  // 使用 beforeunload 事件监听器替代 unload
+  window.addEventListener('beforeunload', (event) => {
+    console.log("页面即将关闭");
+    // 设置提示信息，以确保用户知道页面将关闭或刷新
+    event.returnValue = ''; // 在支持的浏览器上显示确认弹窗
+  });
 }
 
 // 初始化数据和事件
