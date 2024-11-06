@@ -1,6 +1,6 @@
-// eventHandlers.js
+// 删除 eventHandlers.js 中对 currentData 的无效导入
 import { goBack, goForward, goHome } from './historyManager.js';
-import { fetchData, renderList, renderContent, currentData } from './dataManager.js';
+import { fetchData, renderList, renderContent } from './dataManager.js';
 
 // 设置事件绑定
 export function setupEventHandlers() {
