@@ -1,4 +1,6 @@
-// historyManager.js
+// 修改 historyManager.js 来修复多级返回和多级前进功能
+// 问题：每次点击软件库中的目录后，再点击返回时，直接返回到根目录，而不是逐步返回上一级。
+
 export let history = [];
 export let historyIndex = -1;
 
