@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>知晓软件库</title>
   <link rel="stylesheet" href="shouji.css">
-  <script src="https://unpkg.com/vue@3.2.31"></script>
-  <script src="https://unpkg.com/vue-router@4.0.12"></script>
+  <!-- 引入生产环境的 Vue 和 Vue Router -->
+  <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/vue-router@4.0.12/dist/vue-router.global.prod.js"></script>
 </head>
 <body>
   <div id="app">
@@ -36,6 +37,7 @@
     </div>
   </div>
 
-  <script type="module" src="main.js"></script>
+  <!-- 使用 main.js 初始化应用 -->
+  <script type="module" src="./main.js"></script>
 </body>
 </html>
