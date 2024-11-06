@@ -1,6 +1,6 @@
 // eventHandlers.js
 import { goBack, goForward, goHome } from './historyManager.js';
-import { fetchData, renderList, renderContent } from './dataManager.js'; // 添加 renderContent
+import { fetchData, renderList, renderContent, currentData } from './dataManager.js'; // 导入 currentData
 
 // 设置事件绑定
 export function setupEventHandlers() {
