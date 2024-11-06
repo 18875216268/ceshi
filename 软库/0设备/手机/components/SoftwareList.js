@@ -16,12 +16,13 @@ export default {
       softwareItems: [],
     };
   },
+  inject: ['db'], // 注入 Firebase 数据库实例
   created() {
     this.fetchData();
   },
   methods: {
     fetchData() {
-      const db = this.$root.$options.provides.db;
+      const db = this.db; // 使用注入的 db 实例
       const sitesRef = ref(db, 'sites');
       onValue(sitesRef, (snapshot) => {
         this.softwareItems = [];
