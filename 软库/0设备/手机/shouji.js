@@ -1,3 +1,4 @@
+// 导入Firebase的核心模块和实时数据库模块
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"; // 初始化Firebase应用
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"; // 实时数据库相关功能
 
@@ -20,8 +21,6 @@ const db = getDatabase(app); // 获取Firebase数据库实例，关联到初始�
 // 当网页文档加载完成时执行主程序
 document.addEventListener('DOMContentLoaded', () => { 
   const listContainer = document.getElementById('software-list'); // 获取用于显示软件列表的HTML容器
-  const searchButton = document.getElementById('search-btn'); // 获取搜索按钮
-  const searchInput = document.getElementById('search-input'); // 获取搜索输入框
   const homeButton = document.getElementById('home-btn'); // 获取主页按钮
   const backButton = document.getElementById('back-btn'); // 获取返回按钮
   const forwardButton = document.getElementById('forward-btn'); // 获取前进按钮
@@ -34,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderList = (data) => { 
     document.getElementById('count').textContent = data.length; // 更新软件计数显示
     listContainer.innerHTML = ''; // 清空列表容器
+    }
 
     data.forEach(item => { // 遍历每个软件项目
       const listItem = document.createElement('div'); // 创建列表项元素
