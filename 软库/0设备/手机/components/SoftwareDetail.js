@@ -8,12 +8,12 @@ export default {
   `,
   data() {
     return {
-      softwareUrl: '', // 软件库初始 URL
+      softwareUrl: '', // 当前软件库页面的 URL
     };
   },
   inject: ['db'], // 注入 Firebase 数据库实例
   created() {
-    this.loadSoftware();
+    this.loadSoftware(); // 初始化加载软件库页面
   },
   methods: {
     loadSoftware() {
@@ -28,23 +28,23 @@ export default {
         }
       });
     },
-    handleIframeNavigation(event) {
+    handleIframeNavigation() {
       const iframeDocument = this.$refs.iframe.contentDocument || this.$refs.iframe.contentWindow.document;
 
-      iframeDocument.addEventListener('click', (e) => {
-        const target = e.target;
+      iframeDocument.addEventListener('click', (event) => {
+        const target = event.target;
+        
         if (target.tagName === 'A' && target.href) {
-          e.preventDefault(); // 阻止默认跳转行为
-          this.softwareUrl = target.href; // 更新 iframe 中的 URL
-          this.$refs.iframe.src = this.softwareUrl; // 在 iframe 中加载新页面
+          event.preventDefault(); // 阻止默认行为
+          this.softwareUrl = target.href; // 更新 iframe 的 URL
+          this.$refs.iframe.src = this.softwareUrl; // 在 iframe 中加载新内容
         }
       });
     }
   },
   mounted() {
-    // 在 iframe 加载完内容后，开始监听其内部点击事件
     this.$refs.iframe.onload = () => {
-      this.handleIframeNavigation();
+      this.handleIframeNavigation(); // 监听 iframe 内的导航事件
     };
   },
 };
