@@ -5,7 +5,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f0f4ff;
+  background-color: #f0f4ff; /* 全局背景颜色 */
 }
 
 .header {
@@ -14,11 +14,11 @@ body {
   width: 100%;
   max-width: 600px;
   padding: 0;
-  background-color: #f0f4ff;
+  background-color: #f0f4ff; /* 顶部背景颜色 */
   position: fixed;
   top: 0;
   z-index: 10;
-  height: 7vh; /* 动态高度，约占屏幕7% */
+  height: 7vh; /* 调整为占屏幕高度的 7% */
 }
 
 .logo {
@@ -35,6 +35,7 @@ body {
   max-width: 600px;
   margin: 0;
   padding: 0;
+  background-color: #f0f4ff; /* 中间内容背景颜色 */
   overflow-y: auto;
   box-sizing: border-box;
   margin-top: 7vh; /* 使内容与 header 紧贴 */
@@ -99,7 +100,7 @@ body {
 
 .content-frame {
   width: 100%;
-  height: calc(100vh - 14vh); /* 动态高度，计算中间区域 */
+  height: calc(100vh - 14vh); /* 动态计算内容区域高度 */
   border: none;
 }
 
@@ -110,11 +111,11 @@ body {
   width: 100%;
   max-width: 600px;
   padding: 0;
-  background-color: #f0f4ff;
+  background-color: #f0f4ff; /* 底部背景颜色 */
   position: fixed;
   z-index: 10;
   bottom: 0;
-  height: 7vh; /* 动态高度，约占屏幕7% */
+  height: 7vh; /* 调整为占屏幕高度的 7% */
   justify-content: space-around;
 }
 
