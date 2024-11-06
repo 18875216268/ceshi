@@ -22,7 +22,7 @@ body { /* 设置页面主体样式 */
   justify-content: space-around; /* 水平方向均匀分布 */
 }
 
-.header { /* 底部样式 */
+.header { /* 顶部样式 */
   display: flex; /* 使用flex布局 */
   align-items: center; /* 垂直居中 */
   width: 100%; /* 占满宽度 */
@@ -79,7 +79,7 @@ body { /* 设置页面主体样式 */
   background-color: #f0f4ff; /* 背景颜色 */
 }
 
-.software-item:hover { /* 列表项悬停样式 */
+.software-item:hover { /* 列表项悬浮样式 */
   background-color: #e0e0e0; /* 改变背景颜色 */
 }
 
