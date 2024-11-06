@@ -77,6 +77,24 @@ export function renderList(data) {
 export function renderContent(url) {
   const listContainer = document.getElementById('software-list');
   listContainer.innerHTML = `<iframe src="${url}" class="content-frame"></iframe>`;
+
+  // 监听 iframe 内部的链接点击事件，确保子目录点击也被记录到历史中
+  const iframe = listContainer.querySelector('iframe');
+  iframe.onload = () => {
+    try {
+      const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+      iframeDocument.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.tagName === 'A' && target.href) {
+          e.preventDefault(); // 阻止默认跳转行为
+          addToHistory({ type: 'content', url: target.href });
+          renderContent(target.href); // 在 iframe 中加载新页面
+        }
+      });
+    } catch (error) {
+      console.warn("无法访问 iframe 内部内容，可能是由于跨域限制");
+    }
+  };
 }
 
 // 获取数据
