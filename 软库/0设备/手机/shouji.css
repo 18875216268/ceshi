@@ -37,8 +37,8 @@ body {
   padding: 0;
   overflow-y: auto;
   box-sizing: border-box;
-  margin-top: 10vh; /* 使内容与 header 紧贴 */
-  margin-bottom: 10vh; /* 使内容与 footer 紧贴 */
+  margin-top: 7vh; /* 使内容与 header 紧贴 */
+  margin-bottom: 7vh; /* 使内容与 footer 紧贴 */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
