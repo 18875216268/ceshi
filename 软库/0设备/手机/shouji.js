@@ -127,11 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  homeButton.addEventListener('click', () => { // 主页按钮点击事件
-    window.location.href = 'https://www.quruanpu.cn'; // 跳转到主页
+  // 主页按钮点击事件
+  homeButton.addEventListener('click', () => {
+    renderList(currentData); // 返回到软件库列表
+    history = [{ type: 'list', data: currentData }]; // 重置历史记录到主页
+    historyIndex = 0; // 重置历史索引
   });
 
-  backButton.addEventListener('click', () => { // 返回按钮点击事件
+  // 返回按钮点击事件
+  backButton.addEventListener('click', () => {
     if (historyIndex > 0) { // 如果有历史记录
       historyIndex--; // 更新历史索引
       const previousState = history[historyIndex]; // 获取上一个历史状态
@@ -143,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  forwardButton.addEventListener('click', () => { // 前进按钮点击事件
+  // 前进按钮点击事件
+  forwardButton.addEventListener('click', () => {
     if (historyIndex < history.length - 1) { // 如果可以前进
       historyIndex++; // 更新历史索引
       const nextState = history[historyIndex]; // 获取下一个历史状态
